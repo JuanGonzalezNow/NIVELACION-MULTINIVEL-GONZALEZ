@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // Crear personaje
+        // Crear héroe
         Personaje heroe = new Personaje();
         heroe.nombre = "Gandalf";
         heroe.clase = "Mago";
@@ -29,9 +29,16 @@ public class Main {
         PersonajeView view = new PersonajeView();
         CombateController controller = new CombateController();
 
+        // Mostrar estado inicial
         view.mostrarEstado(heroe);
 
+        // Evaluar estado
         controller.evaluarEstado(heroe);
-        controller.atacar(heroe, enemigo);
+
+        // Tipo de ataque
+        controller.tipoAtaque(heroe.clase, 3);
+
+        // Combate completo
+        controller.combateCompleto(heroe, enemigo);
     }
 }
