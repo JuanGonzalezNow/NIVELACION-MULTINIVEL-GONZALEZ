@@ -1,0 +1,14 @@
+BUG A CORREGIR Encuentra y corrige los 2 errores:
+Java:
+int vida = 100.5; // error: _______________________ 
+El tipo de dato que estoy declarando es de tipo INT si esta variable guarda datos con decimales presentara un error ya que el tipo de dato que permite son enteros.
+String nivel = 1; // error: _______________________
+El tipo de dato que estoy declarando es de tipo STRING si esta variable guarda datos como numeros presentara un error ya que el tipo de dato que permite son las cadenas de texto.
+
+Python:
+esta_vivo = 'true' # error: _______________________
+El error están en el uso de las comillas, como Python declara su tipo de dato automáticamente, no sabe como tomar el dato de 'true' ya que seria como una cadena de texto que solo guardaría el valor de 'true' mientras para darle solución debería hacerse sin el uso de las comillas.
+mana = int('cien') # error: _______________________
+Aquí el otro error se encuentra en el tipo de dato que le estoy haciendo CASTING, como el CASTING que estoy haciendo esta recibiendo es una cadena de texto no lo pode convertir en formato de enteros por lo que seria un error de CASTING. Para solucionarlo debería ser sin las comillas y recibiría números en vez de texto.
+
+

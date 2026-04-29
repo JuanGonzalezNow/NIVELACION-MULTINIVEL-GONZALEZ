@@ -1,0 +1,9 @@
+BUG A CORREGIR Corrige el error en cada versión: 
+Java: if (clase = "Guerrero") { ... } // error: _______________________ 
+El error se da en el uso de la condición, este se esta igualando pero no se esta comparando, para solucionar esto, se debe utilizar el operador == para poder
+hacer una comparación.
+Python: if nivel >= 5 and vida > 0 print('ok') # error: _______________________ 
+El error sucede porque no se esta agregando el ';' al final de la condición lo que hace que lea toda la línea y siga con el print, lo que seria un error.
+Python (2): clase = 'Guerrero' if clase == 'guerrero': # error sutil: _____________________
+En Python se respeta demasiado el contenido que este en CamelCase y PascalCase por lo que si declaras una variable llamada Guerrero la mayuscula inicial importa
+en esta palabra, entonces podría tener dos palabras distintas como Guerrero y guerrero.
