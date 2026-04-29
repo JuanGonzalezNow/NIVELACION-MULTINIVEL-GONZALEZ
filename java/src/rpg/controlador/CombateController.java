@@ -2,75 +2,62 @@ package rpg.controlador;
 
 import rpg.modelo.Personaje;
 import rpg.vista.PersonajeView;
+import java.util.ArrayList;
 
 public class CombateController {
 
     private PersonajeView view = new PersonajeView();
 
-    // ===== Estado del personaje =====
-    public void evaluarEstado(Personaje p) {
-        double pct = (p.vida / p.vidaMax) * 100;
+    // ... (Métodos anteriores: evaluarEstado, tipoAtaque, combateCompleto)
 
-        String estado;
-
-        if (pct <= 0) {
-            estado = "MUERTO";
-        } else if (pct <= 25) {
-            estado = "CRITICO";
-        } else if (pct <= 50) {
-            estado = "HERIDO";
-        } else if (pct <= 75) {
-            estado = "ESTABLE";
-        } else {
-            estado = "SALUDABLE";
-        }
-
-        view.mostrarMensaje("Estado: " + estado);
-    }
-
-    // ===== Tipo de ataque =====
-    public void tipoAtaque(String clase, int nivelHabilidad) {
-
-        String tipoAtaque;
-
-        switch (clase) {
-            case "Guerrero":
-                tipoAtaque = "Espada";
-                break;
-            case "Mago":
-                tipoAtaque = "Hechizo";
-                break;
-            case "Arquero":
-                tipoAtaque = "Flecha";
-                break;
-            default:
-                tipoAtaque = "Puño";
-        }
-
-        boolean puedeUsarMagia =
-                clase.equals("Mago") && nivelHabilidad >= 3;
-
-        if (puedeUsarMagia) {
-            view.mostrarMensaje("Bola de fuego!");
-        } else {
-            view.mostrarMensaje(tipoAtaque + " basico");
+    // ===== BLOQUE 3: Ciclos (Inventario) =====
+    public void gestionarInventario(ArrayList<String> inventario) {
+        view.mostrarMensaje("=== INVENTARIO ===");
+        // for con índice (3.1)
+        for (int i = 0; i < inventario.size(); i++) {
+            view.mostrarMensaje((i + 1) + ". " + inventario.get(i));
         }
     }
 
-    // ===== Combate completo (EJERCICIO 2A) =====
-    public void combateCompleto(Personaje jugador, Personaje enemigo) {
+    // ===== BLOQUE 3: Ciclos (Simulación de Rondas) =====
+    public void simularCombate(Personaje heroe, Personaje enemigo) {
+        int ronda = 1;
+        // Ciclo while (3.2)
+        while (heroe.vida > 0 && enemigo.vida > 0) {
+            int danoAlEnemigo = calcularDano(heroe.ataque, enemigo.defensa);
+            enemigo.vida -= danoAlEnemigo;
 
-        int bonificacion = (jugador.nivel >= 5) ? 10 : 0;
+            int danoAlHeroe = calcularDano(15, heroe.defensa); // Daño base enemigo 15
+            heroe.vida -= danoAlHeroe;
 
-        int danoTotal = jugador.ataque + bonificacion;
-        int vidaRestante = (int) enemigo.vida - danoTotal;
-
-        if (vidaRestante <= 0) {
-            view.mostrarMensaje("Enemigo derrotado! +50 XP");
-        } else if (vidaRestante <= 20) {
-            view.mostrarMensaje("Enemigo en estado critico");
-        } else {
-            view.mostrarMensaje("Enemigo resiste. Vida restante: " + vidaRestante);
+            view.mostrarMensaje("Ronda " + ronda + ": Heroe HP=" + heroe.vida + " | Enemigo HP=" + enemigo.vida);
+            ronda++;
         }
+        view.mostrarMensaje(heroe.vida > 0 ? "VICTORIA!" : "DERROTA");
+    }
+
+    // ===== BLOQUE 4: Funciones / Métodos Reutilizables =====
+    
+    // Método que retorna el daño real (4.1)
+    public int calcularDano(int ataque, int defensa) {
+        int dano = ataque - defensa;
+        return dano > 0 ? dano : 1;
+    }
+
+    // Método para curar sin pasar el máximo (4.1)
+    public void aplicarCuracion(Personaje p, double curacion) {
+        double nuevaVida = p.vida + curacion;
+        p.vida = (nuevaVida > p.vidaMax) ? p.vidaMax : nuevaVida;
+        view.mostrarMensaje(p.nombre + " se ha curado. Vida actual: " + p.vida);
+    }
+
+    // Ejercicio 4A: Subir Nivel
+    public int subirNivel(int xpActual, int xpNecesario, int nivelActual) {
+        if (xpActual >= xpNecesario) {
+            nivelActual++;
+            view.mostrarMensaje("¡SUBIDA DE NIVEL! Ahora eres nivel: " + nivelActual);
+            return nivelActual;
+        }
+        return nivelActual;
     }
 }
