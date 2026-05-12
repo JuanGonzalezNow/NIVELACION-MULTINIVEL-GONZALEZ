@@ -1,10 +1,5 @@
 # app/main.py
+from views.simulador_view import run_simulador
 
-def run_ejercicio():
-    # Aquí puedes pegar el código de las variables de Aragorn y Gandalf
-    # para probar que todo funcione antes de separarlo en clases.
-    print("--- Inicializando RPG ---")
-    # ... (tu código de variables aquí) ...
-
-if __name__ == "__main__":
-    run_ejercicio()
+if __name__ == '__main__':
+    run_simulador()
